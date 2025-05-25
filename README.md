@@ -14,21 +14,38 @@ cp ./gdb-dashboard/.gdbinit ~/.config/gdb/
 > ```gdb-dashboard.ps1```
 > ```powershell
 > param($filename)
->
-> # Modify this line to change the default layout for gdb-dashboard
-> $layout = "dashboard -layout assembly source threads breakpoints variables 
+> 
+> $layout = "dashboard -layout variables threads breakpoints"
+> 
+> if(Test-Path -Path ./.tmp) {
+>   Remove-Item ./.tmp
+> }
 > New-Item ./.tmp
-> Write-Output $filename > ./.tmp
-> Start-Process -FilePath pwsh.exe -ArgumentList <absolute_path>/read_filestream.ps1
+> 
+> Write-Output "Debugging: $filename" > ./.tmp
+> 
+> Start-Process -FilePath pwsh.exe -ArgumentList I:\Study\PwshScript\pipeserver\read_filestream.ps1
 > gdb.exe -ex "dashboard -output ./.tmp" -ex $layout $filename
+> 
 > Remove-Item ./.tmp
 > ```
 > Replace <absolute_path> to the actual location of ```read_filestream.ps1```
 
 > ```read_filestream.ps1```
 > ```powershell
-> $filePath = ".\.tmp"
-> Get-Content $filePath -Wait
+> $filepath = ".\.tmp"
+> 
+> $previous_content = Get-Content $filepath -Raw
+> Write-Output $previous_content
+> 
+> while(Test-Path -Path $filepath) {
+>   $current_content = Get-Content $filepath -Raw
+>   if($current_content -ne $previous_content) {
+>     Write-Output $current_content
+>     $previous_content = $current_content
+>   }
+>   Start-Sleep -Milliseconds 500
+> }
 > ```
 
 - You should have directory structure like this:
