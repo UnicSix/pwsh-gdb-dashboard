@@ -1,7 +1,10 @@
 param($filename)
 
-$layout = "dashboard -layout source threads breakpoints"
+$layout = "dashboard -layout variables threads breakpoints"
 
+if(Test-Path -Path ./.tmp) {
+  Remove-Item ./.tmp
+}
 New-Item ./.tmp
 
 Write-Output "Debugging: $filename" > ./.tmp
