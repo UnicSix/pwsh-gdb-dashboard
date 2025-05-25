@@ -11,6 +11,7 @@ cp ./gdb-dashboard/.gdbinit ~/.config/gdb/
 ```
 
 - Setting up scripts to pipe dashboard output to file, and print in the other powershell
+- You can also clone the repo like using gdb-dashboard
 > ```gdb-dashboard.ps1```
 > ```powershell
 > param($filename)
