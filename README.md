@@ -4,7 +4,7 @@
 - gdb-dashboard (.gdbinit)
 ## Setup 
 - clone ```.gdbinit``` file from [gdb-dashboard](https://github.com/cyrus-and/gdb-dashboard.git) and copy it to gdb config folder.
-(default path: ~/.config/gdb/)
+(default path: "~/.config/gdb/" or "~/")
 ```bash
 git clone https://github.com/cyrus-and/gdb-dashboard.git
 cp ./gdb-dashboard/.gdbinit ~/.config/gdb/
